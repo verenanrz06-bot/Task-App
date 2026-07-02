@@ -92,10 +92,21 @@ Once a day (scheduled in `vercel.json`, currently 13:00 UTC - adjust the
 cron expression there if you want a different time), `/api/cron-notify`
 runs automatically, checks your synced data for anything due today or
 overdue, and - if there's anything - sends one push notification like
-"2 due today · 1 overdue." It only sends once per calendar day.
+"2 due today · 1 overdue - you've got this." It only sends once per
+calendar day, and rotates in a gentle encouragement line whenever
+something's overdue rather than just reading off cold numbers.
 
-Vercel's free Hobby plan limits Cron Jobs to running once a day per job,
-which is exactly what this needs, so you're fine on the free tier.
+There are now three separate scheduled jobs, all in `vercel.json`:
+- `/api/cron-morning` (11:00 UTC) - sends that day's Bible verse.
+- `/api/cron-notify` (13:00 UTC) - the due/overdue digest, plus a callout
+  whenever a habit hits a streak milestone (3, 7, 14, 21, 30, 50, 60, 100,
+  150, 200, or 365 days).
+- `/api/cron-weekly` (23:00 UTC on Sundays) - a no-pressure weekly
+  check-in: what's still open, with permission to reschedule or let it go.
+
+Vercel's free Hobby plan allows up to 5 cron jobs per project, each capped
+at running once a day - three jobs at once-daily frequency fits
+comfortably within that.
 
 ## Keeping your data in sync
 

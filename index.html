@@ -8,6 +8,15 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#faf8f4">
 <title>Bloom</title>
+<script>
+(function(){
+  try{
+    if(localStorage.getItem('bloomTheme') === 'dark'){
+      document.documentElement.setAttribute('data-theme','dark');
+    }
+  }catch(e){}
+})();
+</script>
 <link rel="manifest" href="/manifest.json">
 <link rel="apple-touch-icon" href="/icon-192.png">
 <link rel="icon" href="/icon-192.png">
@@ -22,14 +31,22 @@
     --danger:#c1584a; --warn:#c98a2e;
     --shadow: 0 1px 2px rgba(51,49,62,0.05);
   }
+  html[data-theme="dark"]{
+    --bg:#1c1a22; --card:#252230; --card2:#2e2b3a; --border:#3a3648;
+    --text:#eeecf5; --muted:#9a95ac; --accent:#a493f0; --accent2:#3fcaa3;
+    --danger:#e07a6c; --warn:#e0a94a;
+    --shadow: 0 1px 4px rgba(0,0,0,0.3);
+  }
   html{overflow-x:hidden;width:100%;}
   *{box-sizing:border-box;}
   body{margin:0;overflow-x:hidden;width:100%;max-width:100vw;
     font-family:'Quicksand',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
     background:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cg transform='translate(40,45)' opacity='0.55'%3E%3Cellipse cx='0' cy='-12' rx='5' ry='9' fill='%23f0b93a' transform='rotate(0)'/%3E%3Cellipse cx='0' cy='-12' rx='5' ry='9' fill='%23f0b93a' transform='rotate(60)'/%3E%3Cellipse cx='0' cy='-12' rx='5' ry='9' fill='%23f0b93a' transform='rotate(120)'/%3E%3Cellipse cx='0' cy='-12' rx='5' ry='9' fill='%23f0b93a' transform='rotate(180)'/%3E%3Cellipse cx='0' cy='-12' rx='5' ry='9' fill='%23f0b93a' transform='rotate(240)'/%3E%3Cellipse cx='0' cy='-12' rx='5' ry='9' fill='%23f0b93a' transform='rotate(300)'/%3E%3Ccircle cx='0' cy='0' r='3.5' fill='%23785631'/%3E%3C/g%3E%3Cg transform='translate(135,110) scale(0.75)' opacity='0.5'%3E%3Cellipse cx='0' cy='-12' rx='5' ry='9' fill='%23f0b93a' transform='rotate(0)'/%3E%3Cellipse cx='0' cy='-12' rx='5' ry='9' fill='%23f0b93a' transform='rotate(60)'/%3E%3Cellipse cx='0' cy='-12' rx='5' ry='9' fill='%23f0b93a' transform='rotate(120)'/%3E%3Cellipse cx='0' cy='-12' rx='5' ry='9' fill='%23f0b93a' transform='rotate(180)'/%3E%3Cellipse cx='0' cy='-12' rx='5' ry='9' fill='%23f0b93a' transform='rotate(240)'/%3E%3Cellipse cx='0' cy='-12' rx='5' ry='9' fill='%23f0b93a' transform='rotate(300)'/%3E%3Ccircle cx='0' cy='0' r='3.5' fill='%23785631'/%3E%3C/g%3E%3Cg transform='translate(25,140) rotate(-20)' opacity='0.45'%3E%3Cellipse cx='0' cy='0' rx='11' ry='4.5' fill='%232ea88a'/%3E%3C/g%3E%3Cg transform='translate(150,35) rotate(35)' opacity='0.4'%3E%3Cellipse cx='0' cy='0' rx='10' ry='4' fill='%232ea88a'/%3E%3C/g%3E%3C/svg%3E"),
       radial-gradient(480px 320px at 100% 0%, rgba(139,122,224,0.10), transparent 65%),
       radial-gradient(420px 300px at 0% 30%, rgba(46,168,138,0.08), transparent 65%),
       var(--bg);
+    background-repeat:repeat, no-repeat, no-repeat, no-repeat;
     background-attachment:fixed;
     color:var(--text);padding-bottom:calc(84px + env(safe-area-inset-bottom));}
   h1,h2{font-family:'Fraunces',serif;font-weight:600;}
@@ -214,6 +231,19 @@
   .special-banner{display:flex;align-items:center;justify-content:space-between;gap:8px;
     background:var(--card2);border:1px solid var(--warn);border-radius:12px;padding:10px 12px;margin-bottom:12px;}
   .special-banner span{font-size:13px;font-weight:600;color:var(--warn);}
+  .cal-week-row{display:flex;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;
+    padding-bottom:10px;scroll-snap-type:x proximity;}
+  .cal-week-col{flex:0 0 148px;scroll-snap-align:start;background:var(--card);border:1px solid var(--border);
+    border-radius:10px;padding:10px;box-shadow:var(--shadow);min-height:120px;}
+  .cal-week-col.is-today{border-color:var(--accent);}
+  .cal-week-col-head{font-size:12px;font-weight:700;padding-bottom:8px;margin-bottom:8px;
+    border-bottom:1px solid var(--border);cursor:pointer;}
+  .cal-week-col.is-today .cal-week-col-head{color:var(--accent);}
+  .cal-week-item{display:flex;align-items:flex-start;gap:6px;padding:5px 0;font-size:11.5px;
+    border-bottom:1px solid var(--border);line-height:1.35;}
+  .cal-week-item:last-child{border-bottom:none;}
+  .cal-week-item .dot{margin-top:4px;width:6px;height:6px;}
+  .cal-week-item.done{text-decoration:line-through;color:var(--muted);}
   /* Inbox */
   .capture-card{background:var(--card);border:1px solid var(--border);border-radius:14px;
     padding:14px;margin-bottom:18px;box-shadow:var(--shadow);}
@@ -254,6 +284,29 @@
   .timer-mode{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700;}
   .timer-controls{display:flex;gap:8px;justify-content:center;margin-top:12px;flex-wrap:wrap;}
   .timer-presets{display:flex;gap:6px;justify-content:center;margin-top:10px;flex-wrap:wrap;}
+  .focus-presence{display:none;align-items:center;justify-content:center;gap:8px;margin-top:14px;
+    font-size:12px;color:var(--muted);}
+  .focus-presence.active{display:flex;}
+  .focus-presence-dot{width:8px;height:8px;border-radius:50%;background:var(--accent2);
+    animation:presence-pulse 1.6s ease-in-out infinite;}
+  @keyframes presence-pulse{
+    0%,100%{opacity:.4;transform:scale(0.85);}
+    50%{opacity:1;transform:scale(1.15);}
+  }
+  .habit-milestone{display:inline-block;margin-left:8px;font-size:10px;font-weight:700;color:var(--warn);
+    background:var(--card2);padding:2px 8px;border-radius:10px;text-transform:uppercase;letter-spacing:.04em;}
+  .theme-toggle-row{display:flex;align-items:center;justify-content:space-between;gap:10px;
+    margin-top:8px;padding:10px 14px;background:var(--card);border:1px solid var(--border);
+    border-radius:10px;}
+  .theme-toggle-row span{font-size:13px;font-weight:600;}
+  .switch{position:relative;width:42px;height:24px;flex-shrink:0;}
+  .switch input{opacity:0;width:0;height:0;}
+  .switch-track{position:absolute;inset:0;background:var(--card2);border:1px solid var(--border);
+    border-radius:20px;cursor:pointer;transition:background .15s ease;}
+  .switch-track::before{content:'';position:absolute;width:18px;height:18px;left:2px;top:2px;
+    background:var(--muted);border-radius:50%;transition:transform .15s ease, background .15s ease;}
+  .switch input:checked + .switch-track{background:var(--accent);border-color:var(--accent);}
+  .switch input:checked + .switch-track::before{transform:translateX(18px);background:white;}
 
   @media (min-width:700px){
     main{max-width:720px;margin:0 auto;}
@@ -329,6 +382,13 @@
         <p class="verse-ref" id="verseRef"></p>
       </div>
       <button class="btn secondary" id="enableNotifBtn" style="margin-top:14px;">Enable Notifications</button>
+      <div class="theme-toggle-row">
+        <span>Dark mode</span>
+        <label class="switch">
+          <input type="checkbox" id="themeToggle">
+          <span class="switch-track"></span>
+        </label>
+      </div>
     </header>
 
     <div class="overall">
@@ -393,6 +453,10 @@
         <button class="btn small secondary" data-timer-min="25">25 min</button>
         <button class="btn small secondary" data-timer-min="45">45 min</button>
       </div>
+      <div class="focus-presence" id="focusPresence">
+        <span class="focus-presence-dot"></span>
+        <span>Focusing together — you're not doing this alone.</span>
+      </div>
     </div>
   </div>
 
@@ -411,6 +475,7 @@
       <button class="btn" id="addClassBtn">+ Add Class</button>
       <button class="btn secondary" id="exportBtn">Export backup</button>
       <button class="btn secondary" id="importBtn">Import backup</button>
+      <button class="btn secondary" id="exportIcsBtn">Export to Calendar</button>
       <input type="file" id="importFile" accept="application/json">
     </div>
     <div id="classList"></div>
@@ -584,6 +649,7 @@ const WPI_SPECIAL_DAYS = {
   '2027-07-05':'Independence Day'
 };
 
+const STREAK_MILESTONES = [3, 7, 14, 21, 30, 50, 60, 100, 150, 200, 365];
 const HABIT_CATEGORIES = [
   {id:'routine', name:'Routine', color:'#8b7ae0'},
   {id:'health', name:'Health', color:'#2ea88a'},
@@ -1435,7 +1501,7 @@ function renderHabits(){
     card.innerHTML = `
       <div class="habit-top">
         <div>
-          <div class="habit-name">${escapeHtml(h.name)}</div>
+          <div class="habit-name">${escapeHtml(h.name)}${STREAK_MILESTONES.includes(streak) ? `<span class="habit-milestone">${streak}-day milestone</span>` : ''}</div>
           <div class="habit-meta" style="color:${cat.color}">${cat.name}</div>
         </div>
         <button class="habit-mark ${done?'done':''}" data-mark-habit="${h.id}">${done?'✓':''}</button>
@@ -1573,6 +1639,7 @@ function startTimer(){
   document.getElementById('timerStartBtn').style.display = 'none';
   document.getElementById('timerPauseBtn').style.display = 'inline-block';
   document.getElementById('timerMode').textContent = 'Focusing...';
+  document.getElementById('focusPresence').classList.add('active');
   timerInterval = setInterval(()=>{
     timerSeconds--;
     renderTimerDisplay();
@@ -1582,6 +1649,7 @@ function startTimer(){
       document.getElementById('timerStartBtn').style.display = 'inline-block';
       document.getElementById('timerPauseBtn').style.display = 'none';
       document.getElementById('timerMode').textContent = 'Session complete!';
+      document.getElementById('focusPresence').classList.remove('active');
       if('Notification' in window && Notification.permission === 'granted'){
         try{ new Notification('Focus session complete', {body:'Nice work. Take a short break.'}); }catch(e){}
       }
@@ -1594,6 +1662,7 @@ function pauseTimer(){
   document.getElementById('timerStartBtn').style.display = 'inline-block';
   document.getElementById('timerPauseBtn').style.display = 'none';
   document.getElementById('timerMode').textContent = 'Paused';
+  document.getElementById('focusPresence').classList.remove('active');
 }
 function resetTimer(){
   clearInterval(timerInterval);
@@ -1603,6 +1672,7 @@ function resetTimer(){
   document.getElementById('timerStartBtn').style.display = 'inline-block';
   document.getElementById('timerPauseBtn').style.display = 'none';
   document.getElementById('timerMode').textContent = 'Focus Session';
+  document.getElementById('focusPresence').classList.remove('active');
 }
 document.getElementById('timerStartBtn').addEventListener('click', startTimer);
 document.getElementById('timerPauseBtn').addEventListener('click', pauseTimer);
@@ -1762,7 +1832,7 @@ function renderCalendarWeek(){
   const todayStr = new Date().toISOString().slice(0,10);
 
   const container = document.getElementById('calWeekView');
-  let html = '';
+  let html = '<div class="cal-week-row">';
   for(let i=0;i<7;i++){
     const d = new Date(start); d.setDate(d.getDate()+i);
     const dateStr = d.toISOString().slice(0,10);
@@ -1775,29 +1845,28 @@ function renderCalendarWeek(){
 
     let rows;
     if(special){
-      rows = `<div class="home-empty-row">${escapeHtml(special)}</div>`;
+      rows = `<div style="font-size:11px;color:var(--warn);font-weight:600;">${escapeHtml(special)}</div>`;
     } else if(!classesDay.length && !dayItems.length){
-      rows = `<div class="home-empty-row">Nothing scheduled.</div>`;
+      rows = `<div style="font-size:11px;color:var(--muted);">Nothing scheduled.</div>`;
     } else {
-      rows = classesDay.map(c=>`<div class="agenda-item">
-        <span class="dot" style="background:${c.color};margin-top:4px;"></span>
-        <div class="task-info"><div class="task-title">${escapeHtml(c.name)}</div>
-        <div class="task-due">${c.time ? fmtTime(c.time)+' · ' : ''}Class session</div></div>
-      </div>`).join('') + dayItems.map(it=>`<div class="agenda-item">
-          <span class="dot" style="background:${it.color};margin-top:4px;"></span>
-          <div class="task-info"><div class="task-title ${it.done?'done':''}">${escapeHtml(it.title)}</div>
-          <div class="task-due">${it.done?'Completed':escapeHtml(it.sourceLabel)}</div></div>
+      rows = classesDay.map(c=>`<div class="cal-week-item">
+        <span class="dot" style="background:${c.color};"></span>
+        <span>${escapeHtml(c.name)}${c.time ? ' · '+fmtTime(c.time) : ''}</span>
+      </div>`).join('') + dayItems.map(it=>`<div class="cal-week-item ${it.done?'done':''}">
+          <span class="dot" style="background:${it.color};"></span>
+          <span>${escapeHtml(it.title)}</span>
         </div>`).join('');
     }
 
-    html += `<div class="agenda-group" data-weekday="${dateStr}">
-      <div class="agenda-group-head" style="cursor:pointer;${isToday?'color:var(--accent);':''}">${label}${isToday?' · Today':''}</div>
+    html += `<div class="cal-week-col ${isToday?'is-today':''}" data-weekday="${dateStr}">
+      <div class="cal-week-col-head">${label}</div>
       ${rows}
     </div>`;
   }
+  html += '</div>';
   container.innerHTML = html;
   container.querySelectorAll('[data-weekday]').forEach(el=>{
-    el.querySelector('.agenda-group-head').addEventListener('click', ()=>{
+    el.querySelector('.cal-week-col-head').addEventListener('click', ()=>{
       calSelectedDate = el.dataset.weekday;
       calViewMode = 'day';
       document.querySelectorAll('[data-calmode]').forEach(c=>c.classList.toggle('active', c.dataset.calmode==='day'));
@@ -1972,6 +2041,95 @@ if(enableNotifBtn){
 if('serviceWorker' in navigator){
   navigator.serviceWorker.register('/sw.js').catch(()=>{});
 }
+
+// ---------- DARK MODE ----------
+const themeToggle = document.getElementById('themeToggle');
+function applyTheme(dark){
+  document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+  try{ localStorage.setItem('bloomTheme', dark ? 'dark' : 'light'); }catch(e){}
+}
+themeToggle.checked = (function(){ try{ return localStorage.getItem('bloomTheme') === 'dark'; }catch(e){ return false; } })();
+themeToggle.addEventListener('change', ()=> applyTheme(themeToggle.checked));
+
+// ---------- CALENDAR EXPORT (.ics) ----------
+function pad2(n){ return String(n).padStart(2,'0'); }
+function icsDate(dateStr){ return dateStr.replace(/-/g,''); }
+function icsDateTime(dateStr, timeStr){
+  const [h,m] = (timeStr||'09:00').split(':');
+  return `${dateStr.replace(/-/g,'')}T${pad2(h)}${pad2(m)}00`;
+}
+function escapeICS(s){
+  return String(s).replace(/\\/g,'\\\\').replace(/;/g,'\\;').replace(/,/g,'\\,').replace(/\n/g,'\\n');
+}
+const ICS_BYDAY = ['SU','MO','TU','WE','TH','FR','SA'];
+
+function buildICS(){
+  const lines = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Bloom//EN','CALSCALE:GREGORIAN'];
+  const now = new Date();
+  const dtstamp = icsDateTime(now.toISOString().slice(0,10), `${pad2(now.getHours())}:${pad2(now.getMinutes())}`);
+
+  data.classes.forEach(c=>{
+    if(!c.days || !c.days.length) return;
+    let startBound = new Date();
+    let untilStr = null;
+    if(c.termId && TERMS[c.termId]){
+      startBound = new Date(TERMS[c.termId].start+'T12:00:00');
+      const end = new Date(TERMS[c.termId].end+'T23:59:59');
+      untilStr = `${end.getFullYear()}${pad2(end.getMonth()+1)}${pad2(end.getDate())}T235959Z`;
+    }
+    const firstDay = [...c.days].sort((a,b)=>a-b)[0];
+    let d = new Date(startBound);
+    while(d.getDay() !== firstDay) d.setDate(d.getDate()+1);
+    const dateStr = d.toISOString().slice(0,10);
+    const time = c.time || '09:00';
+    const [h,m] = time.split(':').map(Number);
+    const dtStart = icsDateTime(dateStr, time);
+    const dtEnd = icsDateTime(dateStr, `${pad2(h+1)}:${pad2(m)}`);
+    const byday = [...c.days].sort((a,b)=>a-b).map(d2=>ICS_BYDAY[d2]).join(',');
+    lines.push('BEGIN:VEVENT');
+    lines.push(`UID:${c.id}@bloom-app`);
+    lines.push(`DTSTAMP:${dtstamp}`);
+    lines.push(`DTSTART:${dtStart}`);
+    lines.push(`DTEND:${dtEnd}`);
+    let rrule = `RRULE:FREQ=WEEKLY;BYDAY=${byday}`;
+    if(untilStr) rrule += `;UNTIL=${untilStr}`;
+    lines.push(rrule);
+    lines.push(`SUMMARY:${escapeICS(c.name)}`);
+    if(c.instructor) lines.push(`DESCRIPTION:${escapeICS('Instructor: '+c.instructor)}`);
+    lines.push('END:VEVENT');
+  });
+
+  const allTasks = [];
+  data.classes.forEach(c=>c.tasks.forEach(t=>allTasks.push(Object.assign({}, t, {sourceLabel:c.name}))));
+  data.tasks.forEach(t=>{
+    const cat = getCategory(t.categoryId);
+    allTasks.push(Object.assign({}, t, {sourceLabel:cat.name}));
+  });
+  allTasks.forEach(t=>{
+    if(!t.due) return;
+    lines.push('BEGIN:VEVENT');
+    lines.push(`UID:${t.id}@bloom-app`);
+    lines.push(`DTSTAMP:${dtstamp}`);
+    lines.push(`DTSTART;VALUE=DATE:${icsDate(t.due)}`);
+    lines.push(`SUMMARY:${escapeICS(t.title)}`);
+    lines.push(`DESCRIPTION:${escapeICS(t.sourceLabel)}`);
+    lines.push('END:VEVENT');
+  });
+
+  lines.push('END:VCALENDAR');
+  return lines.join('\r\n');
+}
+
+document.getElementById('exportIcsBtn').addEventListener('click', ()=>{
+  const ics = buildICS();
+  const blob = new Blob([ics], {type:'text/calendar'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `bloom-calendar-${new Date().toISOString().slice(0,10)}.ics`;
+  a.click();
+  URL.revokeObjectURL(url);
+});
 
 render();
 loadFromServer();
