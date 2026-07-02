@@ -108,17 +108,32 @@
     background:var(--card);border-top:1px solid var(--border);
     box-shadow:0 -4px 16px rgba(51,49,62,0.06);
     padding:8px 4px calc(8px + env(safe-area-inset-bottom));}
-  .bnav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;
+  .bnav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;
     font-size:11px;font-weight:700;color:var(--muted);cursor:pointer;padding:4px 2px;
     transition:color .15s ease;}
-  .bnav-dot{width:6px;height:6px;border-radius:50%;background:transparent;transition:background .15s ease;}
+  .bnav-icon{width:23px;height:23px;transition:transform .15s ease;}
   .bnav-item.active{color:var(--accent);}
-  .bnav-item.active .bnav-dot{background:var(--accent);}
-  .more-sheet .modal{padding-bottom:calc(22px + env(safe-area-inset-bottom));}
-  .more-row{padding:14px 4px;font-size:15px;font-weight:600;border-bottom:1px solid var(--border);
-    cursor:pointer;transition:color .15s ease;}
-  .more-row:last-child{border-bottom:none;}
-  .more-row:hover{color:var(--accent);}
+  .bnav-item.active .bnav-icon{transform:scale(1.08);}
+
+  /* Floating action buttons */
+  .fab{position:fixed;right:18px;bottom:calc(84px + env(safe-area-inset-bottom));z-index:60;
+    width:56px;height:56px;border-radius:50%;background:var(--accent);color:white;border:none;
+    box-shadow:0 6px 16px rgba(139,122,224,0.4);cursor:pointer;
+    display:flex;align-items:center;justify-content:center;transition:transform .1s ease;}
+  .fab svg{width:26px;height:26px;}
+  .fab:active{transform:scale(0.92);}
+  .search-fab{position:fixed;right:14px;top:calc(14px + env(safe-area-inset-top));z-index:60;
+    width:38px;height:38px;border-radius:50%;background:var(--card);border:1px solid var(--border);
+    box-shadow:var(--shadow);color:var(--muted);cursor:pointer;
+    display:flex;align-items:center;justify-content:center;transition:color .15s ease;}
+  .search-fab svg{width:18px;height:18px;}
+  .search-fab:hover{color:var(--accent);}
+
+  /* Segmented control (Do: Tasks/Habits, School: Classes/Calendar) */
+  .segmented{display:flex;gap:4px;background:var(--card2);border-radius:12px;padding:4px;margin-bottom:16px;}
+  .segmented-btn{flex:1;text-align:center;padding:9px 6px;border-radius:9px;font-size:13px;
+    font-weight:700;color:var(--muted);cursor:pointer;transition:background .15s ease, color .15s ease;}
+  .segmented-btn.active{background:var(--card);color:var(--text);box-shadow:var(--shadow);}
 
   main{padding:0 16px;max-width:100%;}
   .view{display:none;}
@@ -318,6 +333,7 @@
     .tabs{display:flex;max-width:688px;margin:0 auto 14px;}
     .bottom-nav{display:none;}
     body{padding-bottom:40px;}
+    .fab{bottom:24px;}
   }
 </style>
 </head>
@@ -334,23 +350,36 @@
 
 <div class="tabs">
   <div class="tab active" data-view="home">Today</div>
-  <div class="tab" data-view="inbox">Capture</div>
+  <div class="tab" data-view="do">Do</div>
   <div class="tab" data-view="focus">Focus</div>
-  <div class="tab" data-view="habits">Habits</div>
-  <div class="tab" data-view="tasks">Tasks</div>
-  <div class="tab" data-view="classes">Classes</div>
-  <div class="tab" data-view="calendar">Calendar</div>
-  <div class="tab" data-view="agenda">Agenda</div>
-  <div class="tab" data-view="search">Search</div>
+  <div class="tab" data-view="school">School</div>
 </div>
 
 <div class="bottom-nav">
-  <div class="bnav-item tab active" data-view="home"><span class="bnav-dot"></span>Today</div>
-  <div class="bnav-item tab" data-view="inbox"><span class="bnav-dot"></span>Capture</div>
-  <div class="bnav-item tab" data-view="focus"><span class="bnav-dot"></span>Focus</div>
-  <div class="bnav-item tab" data-view="tasks"><span class="bnav-dot"></span>Tasks</div>
-  <div class="bnav-item" id="moreNavBtn"><span class="bnav-dot"></span>More</div>
+  <div class="bnav-item tab active" data-view="home">
+    <svg class="bnav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.6M12 18.9v2.6M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M2.5 12h2.6M18.9 12h2.6M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8"/></svg>
+    Today
+  </div>
+  <div class="bnav-item tab" data-view="do">
+    <svg class="bnav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg>
+    Do
+  </div>
+  <div class="bnav-item tab" data-view="focus">
+    <svg class="bnav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3.4"/></svg>
+    Focus
+  </div>
+  <div class="bnav-item tab" data-view="school">
+    <svg class="bnav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5c2.5-1 5.5-1 8 0v13c-2.5-1-5.5-1-8 0z"/><path d="M20 5.5c-2.5-1-5.5-1-8 0v13c2.5-1 5.5-1 8 0z"/></svg>
+    School
+  </div>
 </div>
+
+<button class="fab" id="captureFab" aria-label="Quick capture">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+</button>
+<button class="search-fab" id="searchFab" aria-label="Search">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.8-4.8"/></svg>
+</button>
 
 <main>
 
@@ -414,18 +443,6 @@
     </div>
   </div>
 
-  <!-- INBOX VIEW -->
-  <div class="view" id="view-inbox">
-    <div class="capture-card">
-      <div class="capture-row">
-        <input type="text" id="inboxInput" placeholder="Capture anything on your mind...">
-        <button class="btn" id="inboxCaptureBtn">Add</button>
-      </div>
-    </div>
-    <div id="inboxList"></div>
-    <div class="empty" id="emptyInbox" style="display:none;">Your inbox is empty. Brain dump here whenever something pops into your head — sort it out later.</div>
-  </div>
-
   <!-- FOCUS VIEW -->
   <div class="view" id="view-focus">
     <div class="focus-card">
@@ -457,87 +474,114 @@
     </div>
   </div>
 
-  <!-- HABITS VIEW -->
-  <div class="view" id="view-habits">
-    <div class="toolbar">
-      <button class="btn" id="addHabitBtn">+ Add Habit</button>
+  <!-- DO VIEW (Tasks + Habits) -->
+  <div class="view" id="view-do">
+    <div class="segmented" id="doSegmented">
+      <div class="segmented-btn active" data-pane="tasks">Tasks</div>
+      <div class="segmented-btn" data-pane="habits">Habits</div>
     </div>
-    <div id="habitList"></div>
-    <div class="empty" id="emptyHabits" style="display:none;">No habits yet. Add routines, health habits, or spiritual practices you want to build.</div>
-  </div>
 
-  <!-- CLASSES VIEW -->
-  <div class="view" id="view-classes">
-    <div class="toolbar">
-      <button class="btn" id="addClassBtn">+ Add Class</button>
-      <button class="btn secondary" id="exportBtn">Export backup</button>
-      <button class="btn secondary" id="importBtn">Import backup</button>
-      <button class="btn secondary" id="exportIcsBtn">Export to Calendar</button>
-      <input type="file" id="importFile" accept="application/json">
-    </div>
-    <div id="classList"></div>
-    <div class="empty" id="emptyClasses" style="display:none;">No classes yet. Tap "+ Add Class" to get started.</div>
-  </div>
-
-  <!-- TASKS VIEW -->
-  <div class="view" id="view-tasks">
-    <div class="overall">
-      <div class="overall-ring-wrap">
-        <svg class="overall-ring" viewBox="0 0 120 120">
-          <circle class="ring-track" cx="60" cy="60" r="52"></circle>
-          <circle class="ring-fill" id="overallRingTasks" cx="60" cy="60" r="52"></circle>
-        </svg>
-        <div class="overall-ring-label">
-          <span id="overallPctTasks">0%</span>
-          <small>complete</small>
+    <div id="doPane-tasks">
+      <div class="overall">
+        <div class="overall-ring-wrap">
+          <svg class="overall-ring" viewBox="0 0 120 120">
+            <circle class="ring-track" cx="60" cy="60" r="52"></circle>
+            <circle class="ring-fill" id="overallRingTasks" cx="60" cy="60" r="52"></circle>
+          </svg>
+          <div class="overall-ring-label">
+            <span id="overallPctTasks">0%</span>
+            <small>complete</small>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="toolbar">
-      <button class="btn" id="addTaskBtn">+ Add Task</button>
-      <button class="btn secondary" id="manageCatBtn">Categories</button>
-    </div>
-    <div class="chip-row" id="categoryFilterRow"></div>
-    <div id="generalTaskList"></div>
-    <div class="empty" id="emptyTasks" style="display:none;">No tasks here. Tap "+ Add Task" to add one.</div>
-  </div>
-
-  <!-- AGENDA VIEW -->
-  <div class="view" id="view-agenda">
-    <div id="agendaList"></div>
-    <div class="empty" id="emptyAgenda" style="display:none;">Nothing scheduled yet.</div>
-  </div>
-
-  <!-- SEARCH VIEW -->
-  <div class="view" id="view-search">
-    <div class="capture-card">
-      <div class="capture-row">
-        <input type="text" id="searchInput" placeholder="Search classes, tasks, habits...">
+      <div class="toolbar">
+        <button class="btn" id="addTaskBtn">+ Add Task</button>
+        <button class="btn secondary" id="manageCatBtn">Categories</button>
       </div>
+      <div class="chip-row" id="categoryFilterRow"></div>
+      <div id="generalTaskList"></div>
+      <div class="empty" id="emptyTasks" style="display:none;">No tasks here. Tap "+ Add Task" to add one.</div>
     </div>
-    <div id="searchResults"></div>
-    <div class="empty" id="emptySearch" style="display:none;">Type something to search.</div>
+
+    <div id="doPane-habits" style="display:none;">
+      <div class="toolbar">
+        <button class="btn" id="addHabitBtn">+ Add Habit</button>
+      </div>
+      <div id="habitList"></div>
+      <div class="empty" id="emptyHabits" style="display:none;">No habits yet. Add routines, health habits, or spiritual practices you want to build.</div>
+    </div>
   </div>
 
-  <!-- CALENDAR VIEW -->
-  <div class="view" id="view-calendar">
-    <div class="chip-row">
-      <div class="chip" data-calmode="day">Day</div>
-      <div class="chip" data-calmode="week">Week</div>
-      <div class="chip active" data-calmode="month">Month</div>
+  <!-- SCHOOL VIEW (Classes + Calendar/Agenda) -->
+  <div class="view" id="view-school">
+    <div class="segmented" id="schoolSegmented">
+      <div class="segmented-btn active" data-pane="classes">Classes</div>
+      <div class="segmented-btn" data-pane="calendar">Calendar</div>
     </div>
-    <div class="cal-nav">
-      <button class="btn small secondary" id="calPrevBtn">‹</button>
-      <span id="calMonthLabel"></span>
-      <button class="btn small secondary" id="calNextBtn">›</button>
+
+    <div id="schoolPane-classes">
+      <div class="toolbar">
+        <button class="btn" id="addClassBtn">+ Add Class</button>
+        <button class="btn secondary" id="exportBtn">Export backup</button>
+        <button class="btn secondary" id="importBtn">Import backup</button>
+        <button class="btn secondary" id="exportIcsBtn">Export to Calendar</button>
+        <input type="file" id="importFile" accept="application/json">
+      </div>
+      <div id="classList"></div>
+      <div class="empty" id="emptyClasses" style="display:none;">No classes yet. Tap "+ Add Class" to get started.</div>
     </div>
-    <div class="cal-grid" id="calWeekdays"></div>
-    <div class="cal-grid" id="calDays"></div>
-    <div id="calWeekView" style="display:none;"></div>
-    <div id="calSelectedList"></div>
+
+    <div id="schoolPane-calendar" style="display:none;">
+      <div class="chip-row">
+        <div class="chip" data-calmode="day">Day</div>
+        <div class="chip" data-calmode="week">Week</div>
+        <div class="chip active" data-calmode="month">Month</div>
+        <div class="chip" data-calmode="list">List</div>
+      </div>
+      <div class="cal-nav" id="calNavRow">
+        <button class="btn small secondary" id="calPrevBtn">‹</button>
+        <span id="calMonthLabel"></span>
+        <button class="btn small secondary" id="calNextBtn">›</button>
+      </div>
+      <div class="cal-grid" id="calWeekdays"></div>
+      <div class="cal-grid" id="calDays"></div>
+      <div id="calWeekView" style="display:none;"></div>
+      <div id="calSelectedList"></div>
+      <div id="agendaList" style="display:none;"></div>
+      <div class="empty" id="emptyAgenda" style="display:none;">Nothing scheduled yet.</div>
+    </div>
   </div>
 
 </main>
+
+<!-- Capture Modal (quick add, opened from the + button) -->
+<div class="modal-overlay" id="captureModalOverlay">
+  <div class="modal">
+    <h2>Capture</h2>
+    <div class="capture-row">
+      <input type="text" id="inboxInput" placeholder="Capture anything on your mind...">
+      <button class="btn" id="inboxCaptureBtn">Add</button>
+    </div>
+    <div style="margin-top:16px;">
+      <div id="inboxList"></div>
+      <div class="empty" id="emptyInbox" style="display:none;padding:20px 4px;">Your inbox is empty. Brain dump here whenever something pops into your head — sort it out later.</div>
+    </div>
+  </div>
+</div>
+
+<!-- Search Modal -->
+<div class="modal-overlay" id="searchModalOverlay">
+  <div class="modal">
+    <h2>Search</h2>
+    <div class="capture-row">
+      <input type="text" id="searchInput" placeholder="Search classes, tasks, habits...">
+    </div>
+    <div style="margin-top:16px;">
+      <div id="searchResults"></div>
+      <div class="empty" id="emptySearch" style="display:none;padding:20px 4px;">Type something to search.</div>
+    </div>
+  </div>
+</div>
 
 <!-- Add/Edit Class Modal -->
 <div class="modal-overlay" id="classModalOverlay">
@@ -599,19 +643,6 @@
       <button class="btn secondary" id="closeCatBtn">Close</button>
       <button class="btn" id="addCatBtn">Add Category</button>
     </div>
-  </div>
-</div>
-
-<!-- More Sheet (mobile) -->
-<div class="modal-overlay more-sheet" id="moreSheetOverlay">
-  <div class="modal">
-    <h2>More</h2>
-    <div class="more-row" data-view="calendar">Calendar</div>
-    <div class="more-row" data-view="agenda">Agenda</div>
-    <div class="more-row" data-view="classes">Classes</div>
-    <div class="more-row" data-view="habits">Habits</div>
-    <div class="more-row" data-view="search">Search</div>
-    <div class="more-row" id="moreSettingsRow">Settings</div>
   </div>
 </div>
 
@@ -835,33 +866,33 @@ function getCategory(id){
 }
 
 // ---------- TABS ----------
-const MORE_VIEWS = ['habits','classes','agenda','calendar','search'];
 function switchToView(viewName){
   document.querySelectorAll('.tab[data-view]').forEach(t=>t.classList.toggle('active', t.dataset.view===viewName));
-  const moreBtn = document.getElementById('moreNavBtn');
-  if(moreBtn) moreBtn.classList.toggle('active', MORE_VIEWS.includes(viewName));
   document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active', v.id === 'view-'+viewName));
-  if(viewName==='agenda') renderAgenda();
-  if(viewName==='calendar') renderCalendar();
-  if(viewName==='search'){
-    renderSearchResults();
-    const si = document.getElementById('searchInput');
-    if(si) si.focus();
-  }
-  const moreSheet = document.getElementById('moreSheetOverlay');
-  if(moreSheet) moreSheet.classList.remove('open');
 }
 document.querySelectorAll('.tab[data-view]').forEach(tab=>{
   tab.addEventListener('click', ()=> switchToView(tab.dataset.view));
 });
-const moreNavBtn = document.getElementById('moreNavBtn');
-const moreSheetOverlay = document.getElementById('moreSheetOverlay');
-if(moreNavBtn){
-  moreNavBtn.addEventListener('click', ()=> moreSheetOverlay.classList.add('open'));
-  moreSheetOverlay.addEventListener('click', e=>{ if(e.target===moreSheetOverlay) moreSheetOverlay.classList.remove('open'); });
-  document.querySelectorAll('.more-row[data-view]').forEach(row=>{
-    row.addEventListener('click', ()=> switchToView(row.dataset.view));
+
+// ---------- SEGMENTED CONTROLS (Do: Tasks/Habits, School: Classes/Calendar) ----------
+function wireSegmented(segmentedId, panePrefix, onSelect){
+  const container = document.getElementById(segmentedId);
+  container.querySelectorAll('.segmented-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      container.querySelectorAll('.segmented-btn').forEach(b=>b.classList.toggle('active', b===btn));
+      container.parentElement.querySelectorAll(`[id^="${panePrefix}-"]`).forEach(pane=>{
+        pane.style.display = (pane.id === `${panePrefix}-${btn.dataset.pane}`) ? 'block' : 'none';
+      });
+      if(onSelect) onSelect(btn.dataset.pane);
+    });
   });
+}
+wireSegmented('doSegmented', 'doPane', null);
+wireSegmented('schoolSegmented', 'schoolPane', (pane)=>{ if(pane === 'calendar') renderCalendar(); });
+
+function selectPane(segmentedId, pane){
+  const btn = document.querySelector(`#${segmentedId} .segmented-btn[data-pane="${pane}"]`);
+  if(btn) btn.click();
 }
 
 // ---------- SETTINGS ----------
@@ -869,12 +900,30 @@ const settingsOverlay = document.getElementById('settingsModalOverlay');
 document.getElementById('openSettingsBtn').addEventListener('click', ()=> settingsOverlay.classList.add('open'));
 document.getElementById('closeSettingsBtn').addEventListener('click', ()=> settingsOverlay.classList.remove('open'));
 settingsOverlay.addEventListener('click', e=>{ if(e.target===settingsOverlay) settingsOverlay.classList.remove('open'); });
-document.getElementById('moreSettingsRow').addEventListener('click', ()=>{
-  moreSheetOverlay.classList.remove('open');
-  settingsOverlay.classList.add('open');
+
+// ---------- CAPTURE FAB ----------
+const captureOverlay = document.getElementById('captureModalOverlay');
+document.getElementById('captureFab').addEventListener('click', ()=>{
+  captureOverlay.classList.add('open');
+  document.getElementById('inboxInput').focus();
 });
+captureOverlay.addEventListener('click', e=>{ if(e.target===captureOverlay) captureOverlay.classList.remove('open'); });
 
 // ---------- SEARCH ----------
+const searchOverlay = document.getElementById('searchModalOverlay');
+document.getElementById('searchFab').addEventListener('click', ()=>{
+  searchOverlay.classList.add('open');
+  renderSearchResults();
+  document.getElementById('searchInput').focus();
+});
+searchOverlay.addEventListener('click', e=>{ if(e.target===searchOverlay) searchOverlay.classList.remove('open'); });
+
+function goToResult(tab, pane){
+  searchOverlay.classList.remove('open');
+  switchToView(tab);
+  if(pane) selectPane(tab+'Segmented', pane);
+}
+
 function renderSearchResults(){
   const input = document.getElementById('searchInput');
   const empty = document.getElementById('emptySearch');
@@ -888,24 +937,24 @@ function renderSearchResults(){
   const results = [];
   data.classes.forEach(c=>{
     if(c.name.toLowerCase().includes(q)){
-      results.push({type:'Class', label:c.name, sub:classScheduleLabel(c)||'No schedule set', color:c.color, view:'classes'});
+      results.push({type:'Class', label:c.name, sub:classScheduleLabel(c)||'No schedule set', color:c.color, tab:'school', pane:'classes'});
     }
     c.tasks.forEach(t=>{
       if(t.title.toLowerCase().includes(q)){
-        results.push({type:'Assignment', label:t.title, sub:c.name, color:c.color, view:'classes'});
+        results.push({type:'Assignment', label:t.title, sub:c.name, color:c.color, tab:'school', pane:'classes'});
       }
     });
   });
   data.tasks.forEach(t=>{
     if(t.title.toLowerCase().includes(q)){
       const cat = getCategory(t.categoryId);
-      results.push({type:'Task', label:t.title, sub:cat.name, color:cat.color, view:'tasks'});
+      results.push({type:'Task', label:t.title, sub:cat.name, color:cat.color, tab:'do', pane:'tasks'});
     }
   });
   data.habits.forEach(h=>{
     if(h.name.toLowerCase().includes(q)){
       const cat = getHabitCategory(h.category);
-      results.push({type:'Habit', label:h.name, sub:cat.name, color:cat.color, view:'habits'});
+      results.push({type:'Habit', label:h.name, sub:cat.name, color:cat.color, tab:'do', pane:'habits'});
     }
   });
 
@@ -915,7 +964,7 @@ function renderSearchResults(){
   }
   const group = document.createElement('div');
   group.className = 'agenda-group';
-  group.innerHTML = results.map(r=>`<div class="agenda-item" data-goto="${r.view}" style="cursor:pointer;">
+  group.innerHTML = results.map((r,i)=>`<div class="agenda-item" data-result-idx="${i}" style="cursor:pointer;">
     <span class="dot" style="background:${r.color};margin-top:4px;"></span>
     <div class="task-info">
       <div class="task-title">${escapeHtml(r.label)}</div>
@@ -923,8 +972,9 @@ function renderSearchResults(){
     </div>
   </div>`).join('');
   container.appendChild(group);
-  group.querySelectorAll('[data-goto]').forEach(el=>{
-    el.addEventListener('click', ()=> switchToView(el.dataset.goto));
+  group.querySelectorAll('[data-result-idx]').forEach(el=>{
+    const r = results[Number(el.dataset.resultIdx)];
+    el.addEventListener('click', ()=> goToResult(r.tab, r.pane));
   });
 }
 document.getElementById('searchInput').addEventListener('input', renderSearchResults);
@@ -1978,13 +2028,17 @@ document.getElementById('calNextBtn').addEventListener('click', ()=>{
 });
 
 function renderCalendar(){
+  document.getElementById('calNavRow').style.display = calViewMode==='list' ? 'none' : 'flex';
   document.getElementById('calWeekdays').style.display = calViewMode==='month' ? 'grid' : 'none';
   document.getElementById('calDays').style.display = calViewMode==='month' ? 'grid' : 'none';
   document.getElementById('calWeekView').style.display = calViewMode==='week' ? 'block' : 'none';
-  document.getElementById('calSelectedList').style.display = calViewMode==='week' ? 'none' : 'block';
+  document.getElementById('calSelectedList').style.display = (calViewMode==='month' || calViewMode==='day') ? 'block' : 'none';
+  document.getElementById('agendaList').style.display = calViewMode==='list' ? 'block' : 'none';
+  document.getElementById('emptyAgenda').style.display = 'none';
 
   if(calViewMode === 'day') return renderCalendarDay();
   if(calViewMode === 'week') return renderCalendarWeek();
+  if(calViewMode === 'list') return renderAgenda();
   return renderCalendarMonth();
 }
 
