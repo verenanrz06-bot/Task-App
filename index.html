@@ -422,8 +422,12 @@
 
 </main>
 
-<!-- Hidden file input used for habit photo capture -->
-<input type="file" id="habitPhotoInput" accept="image/*" capture="environment">
+<!-- Hidden file input used for habit photos. No "capture" attribute on
+     purpose - that hint pushes some mobile browsers straight into the
+     camera and skips the option to pick an existing photo from your
+     library. Leaving it off lets the OS show its normal photo/camera/file
+     chooser instead. -->
+<input type="file" id="habitPhotoInput" accept="image/*">
 
 <!-- Add/Edit Habit Modal -->
 <div class="modal-overlay" id="habitModalOverlay">
@@ -468,6 +472,9 @@
     <div class="modal-actions">
       <button class="btn secondary" id="replacePhotoBtn">Add / Replace Photo</button>
       <button class="btn" id="savePhotoPreviewBtn">Save</button>
+    </div>
+    <div class="modal-actions" id="deletePhotoRow" style="display:none;">
+      <button class="btn danger" id="deletePhotoBtn" style="flex:1;">Delete Photo</button>
     </div>
     <div class="modal-actions">
       <button class="btn secondary" id="closePhotoPreviewBtn" style="flex:1;">Close</button>
@@ -1014,6 +1021,7 @@ function openPhotoPreview(habitId, dateStr){
   img.src = entry.photo || '';
   img.style.display = entry.photo ? 'block' : 'none';
   document.getElementById('photoPreviewCaption').value = entry.caption || '';
+  document.getElementById('deletePhotoRow').style.display = entry.photo ? 'flex' : 'none';
   photoPreviewOverlay.classList.add('open');
 }
 document.getElementById('closePhotoPreviewBtn').addEventListener('click', ()=> photoPreviewOverlay.classList.remove('open'));
@@ -1031,6 +1039,20 @@ document.getElementById('savePhotoPreviewBtn').addEventListener('click', ()=>{
   h.completions[previewDate].caption = caption;
   save(); syncToServer(); render();
   photoPreviewOverlay.classList.remove('open');
+});
+document.getElementById('deletePhotoBtn').addEventListener('click', ()=>{
+  if(!previewHabitId || !previewDate) return;
+  if(!confirm('Delete this photo? The day itself stays marked however it was.')) return;
+  const h = data.habits.find(h=>h.id===previewHabitId);
+  if(!h || !h.completions[previewDate]) return;
+  h.completions[previewDate].photo = null;
+  // if there's nothing left worth keeping for that day, drop the entry entirely
+  if(!h.completions[previewDate].done && !h.completions[previewDate].caption){
+    delete h.completions[previewDate];
+  }
+  save(); syncToServer(); render();
+  photoPreviewOverlay.classList.remove('open');
+  if(galleryOverlay.classList.contains('open')) openGallery(previewHabitId);
 });
 
 // ---------- ADD/EDIT HABIT MODAL ----------
