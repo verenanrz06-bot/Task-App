@@ -26,41 +26,28 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500;1,600&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#faf7f1; --card:#fffefb; --card2:#f2ede2; --border:#e6ddc9;
-    --text:#33313e; --muted:#96917f; --accent:#8b7ae0; --accent2:#2ea88a;
+    --bg:#f6f4f9; --card:#ffffff; --card2:#efecf4; --border:#e2dfeb;
+    --text:#2b2a33; --muted:#8b8896; --accent:#7c5cd6; --accent2:#4a9b8e;
     --danger:#c1584a; --warn:#c98a2e;
-    --shadow: 0 1px 2px rgba(51,49,62,0.05);
+    --shadow: 0 1px 3px rgba(43,42,51,0.06);
   }
   html[data-theme="dark"]{
-    --bg:#1c1a22; --card:#252230; --card2:#2e2b3a; --border:#3a3648;
-    --text:#eeecf5; --muted:#9a95ac; --accent:#a493f0; --accent2:#3fcaa3;
+    --bg:#17151d; --card:#211f28; --card2:#2a2732; --border:#37333f;
+    --text:#eeecf5; --muted:#9a95ac; --accent:#9b7fed; --accent2:#5cb8aa;
     --danger:#e07a6c; --warn:#e0a94a;
-    --shadow: 0 1px 4px rgba(0,0,0,0.3);
+    --shadow: 0 1px 4px rgba(0,0,0,0.35);
   }
   html{overflow-x:hidden;width:100%;}
   *{box-sizing:border-box;}
   body{margin:0;overflow-x:hidden;width:100%;max-width:100vw;position:relative;
     font-family:'Quicksand',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
-    background:
-      radial-gradient(480px 320px at 100% 0%, rgba(139,122,224,0.10), transparent 65%),
-      radial-gradient(420px 300px at 0% 30%, rgba(46,168,138,0.08), transparent 65%),
-      var(--bg);
-    background-repeat:no-repeat, no-repeat, no-repeat;
-    background-attachment:fixed;
+    background:var(--bg);
     color:var(--text);padding-bottom:calc(84px + env(safe-area-inset-bottom));}
-  body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cg transform='translate(40,45)' opacity='0.16'%3E%3Cellipse cx='0' cy='-11' rx='4.5' ry='8' fill='%23f0b93a' transform='rotate(0)'/%3E%3Cellipse cx='0' cy='-11' rx='4.5' ry='8' fill='%23f0b93a' transform='rotate(60)'/%3E%3Cellipse cx='0' cy='-11' rx='4.5' ry='8' fill='%23f0b93a' transform='rotate(120)'/%3E%3Cellipse cx='0' cy='-11' rx='4.5' ry='8' fill='%23f0b93a' transform='rotate(180)'/%3E%3Cellipse cx='0' cy='-11' rx='4.5' ry='8' fill='%23f0b93a' transform='rotate(240)'/%3E%3Cellipse cx='0' cy='-11' rx='4.5' ry='8' fill='%23f0b93a' transform='rotate(300)'/%3E%3Ccircle cx='0' cy='0' r='3' fill='%23785631'/%3E%3C/g%3E%3Cg transform='translate(150,120)' opacity='0.16' fill='%238b7ae0'%3E%3Cellipse cx='0' cy='-9' rx='6' ry='8.5'/%3E%3Cellipse cx='7.5' cy='-2.5' rx='6' ry='8.5' transform='rotate(72 7.5 -2.5)'/%3E%3Cellipse cx='4.5' cy='7' rx='6' ry='8.5' transform='rotate(144 4.5 7)'/%3E%3Cellipse cx='-4.5' cy='7' rx='6' ry='8.5' transform='rotate(216 -4.5 7)'/%3E%3Cellipse cx='-7.5' cy='-2.5' rx='6' ry='8.5' transform='rotate(288 -7.5 -2.5)'/%3E%3C/g%3E%3Cg transform='translate(150,120)' opacity='0.2'%3E%3Ccircle cx='0' cy='0' r='3.5' fill='%23c98a2e'/%3E%3C/g%3E%3Cg transform='translate(30,150) rotate(-20)' opacity='0.14'%3E%3Cellipse cx='0' cy='0' rx='10' ry='4' fill='%232ea88a'/%3E%3C/g%3E%3Cg transform='translate(165,40) rotate(30)' opacity='0.13'%3E%3Cellipse cx='0' cy='0' rx='9' ry='3.6' fill='%232ea88a'/%3E%3C/g%3E%3C/svg%3E");
-    background-repeat:repeat;
-    -webkit-mask-image:radial-gradient(ellipse at center, transparent 30%, black 85%);
-    mask-image:radial-gradient(ellipse at center, transparent 30%, black 85%);}
   h1,h2{font-family:'Fraunces',serif;font-weight:600;}
   h1,h2,p,span,div{overflow-wrap:anywhere;}
   header{padding:26px 18px 6px;position:relative;z-index:10;}
-  .floral-decor{position:absolute;top:-14px;right:6px;width:110px;height:138px;
-    max-width:30vw;pointer-events:none;z-index:0;opacity:0.9;}
-  header > *:not(.floral-decor){position:relative;z-index:1;}
   .eyebrow{margin:0 0 6px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
-    color:var(--accent2);}
+    color:var(--accent);}
   header h1{margin:0 0 6px;font-size:28px;font-style:italic;letter-spacing:-.01em;}
   header p{margin:0;color:var(--muted);font-size:13px;}
   .verse-card{border-left:3px solid var(--accent);padding:4px 0 4px 16px;margin:18px 0 4px;}
@@ -188,25 +175,34 @@
   .inbox-item span{flex:1;font-size:14px;}
   .inbox-actions{display:flex;gap:6px;flex-shrink:0;}
 
-  .habit-card{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--card-accent, var(--border));
-    border-radius:10px;padding:14px 16px;margin-bottom:14px;box-shadow:var(--shadow);}
-  .habit-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;cursor:pointer;}
-  .habit-name{font-family:'Fraunces',serif;font-size:16px;font-weight:600;}
-  .habit-meta{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-top:2px;}
-  .habit-mark{width:42px;height:42px;border-radius:50%;border:2px solid var(--border);background:transparent;
-    cursor:pointer;flex-shrink:0;overflow:hidden;
-    display:flex;align-items:center;justify-content:center;
-    transition:transform .15s ease;font-size:16px;padding:0;}
-  .habit-mark:hover{transform:scale(1.08);}
-  .habit-mark.done{border-color:var(--accent2);}
-  .habit-mark img{width:100%;height:100%;object-fit:cover;}
-  .habit-mark svg{width:20px;height:20px;color:var(--muted);}
-  .habit-streak-row{display:flex;align-items:center;gap:10px;margin-top:10px;}
-  .habit-streak-num{font-size:12px;color:var(--muted);font-weight:600;white-space:nowrap;}
-  .habit-photo-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin-top:10px;}
-  .habit-photo-thumb{aspect-ratio:1;border-radius:6px;overflow:hidden;background:var(--card2);
-    cursor:pointer;position:relative;}
-  .habit-photo-thumb img{width:100%;height:100%;object-fit:cover;}
+  /* Pinterest-style habit board */
+  .pin-toggle{display:flex;gap:4px;background:var(--card2);border-radius:12px;padding:4px;margin-bottom:16px;}
+  .pin-toggle-btn{flex:1;text-align:center;padding:9px 6px;border-radius:9px;font-size:13px;
+    font-weight:700;color:var(--muted);cursor:pointer;transition:background .15s ease, color .15s ease;}
+  .pin-toggle-btn.active{background:var(--card);color:var(--text);box-shadow:var(--shadow);}
+  .pin-grid{column-count:2;column-gap:12px;}
+  @media (min-width:520px){ .pin-grid{column-count:3;} }
+  @media (min-width:900px){ .pin-grid{column-count:4;} }
+  .pin-card{break-inside:avoid;margin-bottom:12px;background:var(--card);border-radius:14px;
+    overflow:hidden;box-shadow:var(--shadow);}
+  .pin-photo{width:100%;display:block;cursor:pointer;background:var(--card2);}
+  .pin-photo-empty{width:100%;aspect-ratio:1;display:flex;align-items:center;justify-content:center;
+    background:var(--card2);color:var(--muted);cursor:pointer;}
+  .pin-photo-empty svg{width:28px;height:28px;opacity:.5;}
+  .pin-body{padding:10px 12px 12px;}
+  .pin-name{font-family:'Fraunces',serif;font-size:14px;font-weight:600;display:flex;align-items:center;gap:6px;cursor:pointer;}
+  .pin-meta-row{display:flex;justify-content:space-between;align-items:center;margin-top:6px;}
+  .pin-meta{font-size:11px;color:var(--muted);}
+  .pin-mark-btn{width:30px;height:30px;border-radius:50%;border:2px solid var(--border);background:var(--card);
+    cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--muted);
+    transition:transform .15s ease;}
+  .pin-mark-btn:hover{transform:scale(1.1);}
+  .pin-mark-btn.done{border-color:var(--accent2);color:var(--accent2);}
+  .pin-mark-btn svg{width:15px;height:15px;}
+  .pin-feed-item{break-inside:avoid;margin-bottom:12px;background:var(--card);border-radius:14px;
+    overflow:hidden;box-shadow:var(--shadow);}
+  .pin-feed-item img{width:100%;display:block;cursor:pointer;}
+  .pin-feed-caption{padding:8px 12px 10px;font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:8px;}
   .habit-milestone{display:inline-block;margin-left:8px;font-size:10px;font-weight:700;color:var(--warn);
     background:var(--card2);padding:2px 8px;border-radius:10px;text-transform:uppercase;letter-spacing:.04em;}
 
@@ -325,28 +321,6 @@
   <!-- TODAY VIEW -->
   <div class="view active" id="view-home">
     <header>
-      <svg class="floral-decor" viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg">
-        <path d="M20,230 C40,180 15,140 45,100 C65,72 40,40 60,10" fill="none" stroke="var(--accent2)" stroke-width="2.5" stroke-linecap="round" opacity="0.5"/>
-        <ellipse cx="35" cy="165" rx="16" ry="8" fill="var(--accent2)" opacity="0.35" transform="rotate(-35 35 165)"/>
-        <ellipse cx="55" cy="120" rx="14" ry="7" fill="var(--accent2)" opacity="0.35" transform="rotate(30 55 120)"/>
-        <ellipse cx="42" cy="70" rx="13" ry="6.5" fill="var(--accent2)" opacity="0.35" transform="rotate(-20 42 70)"/>
-        <g transform="translate(60,10)">
-          <ellipse cx="0" cy="-10" rx="7" ry="10" fill="var(--accent)" opacity="0.45"/>
-          <ellipse cx="9" cy="-3" rx="7" ry="10" fill="var(--accent)" opacity="0.45" transform="rotate(72)"/>
-          <ellipse cx="5" cy="8" rx="7" ry="10" fill="var(--accent)" opacity="0.45" transform="rotate(144)"/>
-          <ellipse cx="-5" cy="8" rx="7" ry="10" fill="var(--accent)" opacity="0.45" transform="rotate(216)"/>
-          <ellipse cx="-9" cy="-3" rx="7" ry="10" fill="var(--accent)" opacity="0.45" transform="rotate(288)"/>
-          <circle cx="0" cy="0" r="4" fill="var(--warn)" opacity="0.6"/>
-        </g>
-        <g transform="translate(45,100) scale(0.65)">
-          <ellipse cx="0" cy="-10" rx="7" ry="10" fill="var(--accent)" opacity="0.4"/>
-          <ellipse cx="9" cy="-3" rx="7" ry="10" fill="var(--accent)" opacity="0.4" transform="rotate(72)"/>
-          <ellipse cx="5" cy="8" rx="7" ry="10" fill="var(--accent)" opacity="0.4" transform="rotate(144)"/>
-          <ellipse cx="-5" cy="8" rx="7" ry="10" fill="var(--accent)" opacity="0.4" transform="rotate(216)"/>
-          <ellipse cx="-9" cy="-3" rx="7" ry="10" fill="var(--accent)" opacity="0.4" transform="rotate(288)"/>
-          <circle cx="0" cy="0" r="4" fill="var(--warn)" opacity="0.55"/>
-        </g>
-      </svg>
       <p class="eyebrow" id="dateLine"></p>
       <h1 id="greeting">Hi!</h1>
       <div class="verse-card">
@@ -377,10 +351,6 @@
       <div class="agenda-group" id="todayCard"></div>
     </div>
 
-    <div class="home-section">
-      <h2 class="section-heading">Reading Plan</h2>
-      <div class="agenda-group" id="readingSnippet"></div>
-    </div>
   </div>
 
   <!-- HABITS VIEW -->
@@ -388,8 +358,14 @@
     <div class="toolbar">
       <button class="btn" id="addHabitBtn">+ Add Habit</button>
     </div>
-    <div id="habitList"></div>
+    <div class="pin-toggle" id="habitsViewToggle">
+      <div class="pin-toggle-btn active" data-habits-mode="board">By Habit</div>
+      <div class="pin-toggle-btn" data-habits-mode="feed">All Photos</div>
+    </div>
+    <div class="pin-grid" id="habitList"></div>
+    <div class="pin-grid" id="allPhotosFeed" style="display:none;"></div>
     <div class="empty" id="emptyHabits" style="display:none;">No habits yet. Add routines, health habits, or spiritual practices you want to build — each one gets its own daily photo.</div>
+    <div class="empty" id="emptyAllPhotos" style="display:none;">No photos yet. Mark a habit done to start your board.</div>
   </div>
 
   <!-- READING PLAN VIEW -->
@@ -553,8 +529,8 @@ const SPECIAL_DAYS = {
 
 const STREAK_MILESTONES = [3, 7, 14, 21, 30, 50, 60, 100, 150, 200, 365];
 const HABIT_CATEGORIES = [
-  {id:'routine', name:'Routine', color:'#8b7ae0'},
-  {id:'health', name:'Health', color:'#2ea88a'},
+  {id:'routine', name:'Routine', color:'#7c5cd6'},
+  {id:'health', name:'Health', color:'#4a9b8e'},
   {id:'faith', name:'Faith', color:'#c98a2e'}
 ];
 const DAY_LABELS = ['S','M','T','W','T','F','S'];
@@ -636,6 +612,7 @@ function escapeHtml(s){
   return (s||'').replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 }
 function todayStr(){ return new Date().toISOString().slice(0,10); }
+function formatDateShort(dt){ return new Date(dt+'T12:00:00').toLocaleDateString(undefined,{month:'short', day:'numeric'}); }
 
 function getSpecialDayMessage(label){
   if(label.includes('Wellness')) return "Take today to rest, breathe, and be kind to yourself. You don't have to earn rest to deserve it.";
@@ -729,13 +706,18 @@ function unmarkHabitToday(habitId){
   }
 }
 
+const CAMERA_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 8.5A1.5 1.5 0 0 1 5.5 7h2l1-2h7l1 2h2A1.5 1.5 0 0 1 20 8.5v9A1.5 1.5 0 0 1 18.5 19h-13A1.5 1.5 0 0 1 4 17.5z"/><circle cx="12" cy="13" r="3.4"/></svg>`;
+const CHECK_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 13l4 4 10-11" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
+let habitsViewMode = 'board'; // 'board' | 'feed'
+
 function renderHabits(){
   const list = document.getElementById('habitList');
   const empty = document.getElementById('emptyHabits');
   if(!list) return;
   list.innerHTML = '';
-  if(!data.habits.length){ empty.style.display = 'block'; return; }
-  empty.style.display = 'none';
+  if(!data.habits.length){ empty.style.display = 'block'; }
+  else { empty.style.display = 'none'; }
 
   const t = todayStr();
 
@@ -744,33 +726,26 @@ function renderHabits(){
     const done = !!h.completions[t];
     const streak = habitStreak(h);
 
-    // most recent photos, newest first, for the mini Pinterest preview
+    // cover photo: today's if done, otherwise the most recent one on file
     const photoDates = Object.keys(h.completions)
       .filter(dt=>typeof h.completions[dt] === 'string')
-      .sort((a,b)=>b.localeCompare(a))
-      .slice(0,6);
+      .sort((a,b)=>b.localeCompare(a));
+    const coverPhoto = done ? h.completions[t] : (photoDates.length ? h.completions[photoDates[0]] : null);
 
     const card = document.createElement('div');
-    card.className = 'habit-card';
-    card.style.setProperty('--card-accent', cat.color);
+    card.className = 'pin-card';
     card.innerHTML = `
-      <div class="habit-top" data-open-gallery="${h.id}">
-        <div>
-          <div class="habit-name">${escapeHtml(h.name)}${STREAK_MILESTONES.includes(streak) ? `<span class="habit-milestone">${streak}-day milestone</span>` : ''}</div>
-          <div class="habit-meta" style="color:${cat.color}">${cat.name}</div>
+      ${coverPhoto
+        ? `<img class="pin-photo" src="${coverPhoto}" data-open-gallery="${h.id}">`
+        : `<div class="pin-photo-empty" data-open-gallery="${h.id}">${CAMERA_ICON}</div>`}
+      <div class="pin-body">
+        <div class="pin-name" data-edit-habit="${h.id}">${escapeHtml(h.name)}${STREAK_MILESTONES.includes(streak) ? `<span class="habit-milestone">${streak}-day</span>` : ''}</div>
+        <div class="pin-meta-row">
+          <span class="pin-meta" style="color:${cat.color}">${cat.name} &middot; ${streak} day${streak===1?'':'s'}</span>
+          <button class="pin-mark-btn ${done?'done':''}" data-mark-habit="${h.id}" title="${done?'Marked done today':'Mark done (photo required)'}">
+            ${done ? CHECK_ICON : CAMERA_ICON}
+          </button>
         </div>
-        <button class="habit-mark ${done?'done':''}" data-mark-habit="${h.id}">
-          ${done ? `<img src="${h.completions[t]}">` : `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 8.5A1.5 1.5 0 0 1 5.5 7h2l1-2h7l1 2h2A1.5 1.5 0 0 1 20 8.5v9A1.5 1.5 0 0 1 18.5 19h-13A1.5 1.5 0 0 1 4 17.5z"/><circle cx="12" cy="13" r="3.4"/></svg>`}
-        </button>
-      </div>
-      <div class="habit-streak-row">
-        <span class="habit-streak-num">${streak} day${streak===1?'':'s'} streak</span>
-      </div>
-      ${photoDates.length ? `<div class="habit-photo-grid" data-open-gallery="${h.id}">
-        ${photoDates.map(dt=>`<div class="habit-photo-thumb"><img src="${h.completions[dt]}"></div>`).join('')}
-      </div>` : ''}
-      <div class="modal-actions" style="margin-top:10px;">
-        <button class="btn small secondary" data-edit-habit="${h.id}">Edit</button>
       </div>
     `;
     list.appendChild(card);
@@ -792,7 +767,59 @@ function renderHabits(){
   list.querySelectorAll('[data-open-gallery]').forEach(el=>{
     el.addEventListener('click', ()=> openGallery(el.dataset.openGallery));
   });
+
+  renderAllPhotosFeed();
 }
+
+function renderAllPhotosFeed(){
+  const feed = document.getElementById('allPhotosFeed');
+  const empty = document.getElementById('emptyAllPhotos');
+  if(!feed) return;
+  feed.innerHTML = '';
+
+  const shots = [];
+  data.habits.forEach(h=>{
+    Object.keys(h.completions).forEach(dt=>{
+      if(typeof h.completions[dt] === 'string'){
+        shots.push({ habitId: h.id, habitName: h.name, date: dt, photo: h.completions[dt] });
+      }
+    });
+  });
+  shots.sort((a,b)=>b.date.localeCompare(a.date));
+
+  if(!shots.length){ empty.style.display = data.habits.length ? 'block' : 'none'; return; }
+  empty.style.display = 'none';
+
+  shots.forEach(s=>{
+    const item = document.createElement('div');
+    item.className = 'pin-feed-item';
+    item.innerHTML = `
+      <img src="${s.photo}" data-open-gallery="${s.habitId}">
+      <div class="pin-feed-caption"><span>${escapeHtml(s.habitName)}</span><span>${formatDateShort(s.date)}</span></div>
+    `;
+    feed.appendChild(item);
+  });
+  feed.querySelectorAll('[data-open-gallery]').forEach(el=>{
+    el.addEventListener('click', ()=> openGallery(el.dataset.openGallery));
+  });
+}
+
+function setHabitsViewMode(mode){
+  habitsViewMode = mode;
+  document.querySelectorAll('#habitsViewToggle .pin-toggle-btn').forEach(btn=>{
+    btn.classList.toggle('active', btn.dataset.habitsMode === mode);
+  });
+  document.getElementById('habitList').style.display = mode === 'board' ? '' : 'none';
+  document.getElementById('allPhotosFeed').style.display = mode === 'feed' ? '' : 'none';
+  document.getElementById('emptyHabits').style.display = (mode === 'board' && !data.habits.length) ? 'block' : 'none';
+  const feedHasShots = data.habits.some(h=>Object.values(h.completions).some(v=>typeof v === 'string'));
+  document.getElementById('emptyAllPhotos').style.display = (mode === 'feed' && !feedHasShots) ? 'block' : 'none';
+}
+
+document.getElementById('habitsViewToggle').addEventListener('click', (e)=>{
+  const btn = e.target.closest('[data-habits-mode]');
+  if(btn) setHabitsViewMode(btn.dataset.habitsMode);
+});
 
 // ---------- PHOTO GALLERY ----------
 const galleryOverlay = document.getElementById('galleryModalOverlay');
@@ -997,8 +1024,8 @@ function renderHome(){
       const cat = getHabitCategory(h.category);
       const done = !!h.completions[t];
       return `<div class="agenda-item">
-        <button class="habit-mark ${done?'done':''}" data-mark-habit-home="${h.id}" style="width:32px;height:32px;flex-shrink:0;margin-top:0;">
-          ${done ? `<img src="${h.completions[t]}">` : ''}
+        <button class="pin-mark-btn ${done?'done':''}" data-mark-habit-home="${h.id}">
+          ${done ? CHECK_ICON : CAMERA_ICON}
         </button>
         <div class="task-info">
           <div class="task-title">${escapeHtml(h.name)}</div>
@@ -1017,16 +1044,6 @@ function renderHome(){
     });
   }
 
-  const readingSnippet = document.getElementById('readingSnippet');
-  const read = totalChaptersRead();
-  const total = totalChapters();
-  const rpct = total ? Math.round((read/total)*100) : 0;
-  readingSnippet.innerHTML = `<div class="home-empty-row" style="padding:16px;">
-    <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:8px;">
-      <span>${read} of ${total} chapters</span><span style="font-weight:700;color:var(--accent2);">${rpct}%</span>
-    </div>
-    <div class="book-bar"><div class="book-bar-fill" style="width:${rpct}%"></div></div>
-  </div>`;
 }
 
 // ---------- FOCUS: "what should I do right now" ----------
